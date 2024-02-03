@@ -14,9 +14,9 @@ echo "Container IP: $address";
 
 #Checks for updates
 function updateCheck(){
+	yes | apt-get update;
 	yes | apt-get install sudo;
 	yes | apt-get install sendemail;
-	yes | apt-get update;
 	yes | apt-get dist-upgrade;
 	yes | apt-get install send-email;
 }
@@ -61,7 +61,7 @@ function nagiosPackages(){
 #Installs and configures firewall, finishes base Nagios install
 function securityChange(){
 	yes | apt-get install iptables;
-	sudo iptables -I INPUT -p tcp --destination-port 80 -j ACCEPT;
+	sudo iptables -I INPUT -p tcp --destination $address -j ACCEPT;
 	sudo apt-get install -y iptables-persistent;
 	htpasswd -b -c /usr/local/nagios/etc/htpasswd.users nagiosadmin $password;
 	sed -i 's/check_for_updates=1/check_for_updates=0/' /usr/local/nagios/etc/nagios.cfg;
