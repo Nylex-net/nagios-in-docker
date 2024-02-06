@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo 'Enter desired password for Nagios & NagiosQL: ';
-read password;
+# read password;
 password=${password:-dummyPass};
 
 echo 'Enter IP of this Debian Nagios Controller Device: ';
@@ -62,7 +62,8 @@ function nagiosPackages(){
 function securityChange(){
 	yes | apt-get install iptables;
 	sudo iptables -I INPUT -p tcp --destination $address -j ACCEPT;
-	sudo apt-get install -y iptables-persistent;
+	sudo dpkg-reconfigure iptables-persistent;
+	# sudo apt-get install -y iptables-persistent;
 	htpasswd -b -c /usr/local/nagios/etc/htpasswd.users nagiosadmin $password;
 	sed -i 's/check_for_updates=1/check_for_updates=0/' /usr/local/nagios/etc/nagios.cfg;
 }
@@ -78,8 +79,8 @@ function plugins(){
 	make;
 	make install;
 	
-	systemctl restart apache2.service;
-	systemctl start nagios.service;	
+	service apache2.service restart;
+	service nagios.service start;	
 }
 	
 #NagiosQL Install
@@ -87,6 +88,7 @@ function plugins(){
 #Install NagiosQL basic packages
 function qlInit(){
 	sudo apt update;
+	sudo apt upgrade;
 	apt-get install -y php libmcrypt-dev php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-pear gcc php-dev php zlib1g-dev libssh2-1 libssh2-1-dev php-ssh2  mariadb-server build-essential;
 	pear channel-update pear.php.net;
 	pear install HTML_Template_IT;
@@ -94,7 +96,7 @@ function qlInit(){
 
 	echo "extension=mcrypt.so" >> /etc/php/*/apache2/php.ini;
 	echo "date.timezone=Asia/Singapore"  >> /etc/php/*/apache2/php.ini;
-	systemctl restart apache2;
+	service apache2 restart;
 }
 
 #Configure database
