@@ -7,6 +7,7 @@ password=${password:-dummyPass};
 echo 'Enter IP of this Debian Nagios Controller Device: ';
 # read address;
 address=$(hostname -I);
+hostname=$(hostname);
 
 # Display the IP address
 echo "Password: $password";
@@ -102,7 +103,7 @@ function qlInit(){
 #Configure database
 function mysqlConfig(){
 	mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '$password';";
-	mysql -u root -p$password -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'$address' IDENTIFIED BY '$password';";
+	mysql -u root -p$password -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'$hostname' IDENTIFIED BY '$password';";
 	mysql -u root -p$password -e "FLUSH PRIVILEGES;";
 }
 
