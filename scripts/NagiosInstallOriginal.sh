@@ -26,7 +26,7 @@ function mainInstall(){
 	cd /tmp/;
 	wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/releases/download/nagios-4.4.8/nagios-4.4.8.tar.gz;
 	tar xzf nagioscore.tar.gz;
-
+	
 	cd /tmp/nagios-*;
 	./configure --with-httpd-conf=/etc/apache2/sites-enabled;
 	make all;
@@ -71,11 +71,11 @@ function plugins(){
 	./configure;
 	make;
 	make install;
-
+	
 	systemctl restart apache2.service;
 	systemctl start nagios.service;	
 }
-
+	
 #NagiosQL Install
 
 #Install NagiosQL basic packages
@@ -143,7 +143,7 @@ function qlConfig(){
 
 #Download Linux Check_service Plugin
 function checkServPlug(){
-
+	
 	cd /tmp/;
 	wget https://github.com/duffycop/nagios_plugins/files/1881453/check_service.tar.gz;
 	tar xzf check_service.tar.gz;
@@ -162,4 +162,4 @@ qlInit;
 mysqlConfig;
 qlDownload;
 qlConfig;
-checkServPlug;
+checkServPlug;	
