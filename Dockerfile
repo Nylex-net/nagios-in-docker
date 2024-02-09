@@ -1,15 +1,6 @@
-FROM debian:bullseye
+FROM Debian:bullseye
 LABEL maintainer="nylex.net"
 
-COPY ./scripts/NagiosInstall.sh /usr/local/bin/
-
-ENV TERM xterm
-
-# Expose the port your Django app will run on
-EXPOSE 8000
-
-RUN chmod +x /usr/local/bin/NagiosInstall.sh
-
-USER root
-
-CMD ["/usr/local/bin/NagiosInstall.sh"]
+RUN apt-get update && \
+    apt-get install -y autoconf gcc libc6 make wget unzip apache2 apache2-utils php libgd-dev && \
+    apt-get install openssl libssl-dev
