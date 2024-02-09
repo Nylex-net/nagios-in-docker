@@ -1,6 +1,4 @@
-FROM Debian:bullseye
+FROM jasonrivers/nagios
 LABEL maintainer="nylex.net"
 
-RUN apt-get update && \
-    apt-get install -y autoconf gcc libc6 make wget unzip apache2 apache2-utils php libgd-dev && \
-    apt-get install openssl libssl-dev
+COPY ./hosts/ /opt/nagios/etc/objects/
