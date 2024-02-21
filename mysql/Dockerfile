@@ -1,5 +1,5 @@
 FROM mysql:8.0.36-bullseye
 
-EXPOSE 8080
+COPY ./run.sh /opt/nagios/scripts/run.sh
 
-CMD ["run.sh"]
+CMD ["/opt/nagios/scripts/run.sh"]

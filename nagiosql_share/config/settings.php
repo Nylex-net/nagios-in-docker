@@ -16,7 +16,7 @@ exit;
 ;///////////////////////////////////////////////////////////////////////////////
 [db]
 type         = 'mysqli'
-server       = 'localhost'
+server       = 'db'
 port         = '3306'
 database     = 'db_nagiosql_v341'
 username     = 'nagiosql_user'
