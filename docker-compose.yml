@@ -13,7 +13,8 @@ services:
       nagios_network:
         ipv4_address: 10.10.99.69
     ports:
-      - 6942:80
+      - "80:80"
+      - "22:22"
     volumes:
       - nagios-data:/vol/web/static
 
