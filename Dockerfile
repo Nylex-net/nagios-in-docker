@@ -19,14 +19,17 @@ ENV APACHE_RUN_GROUP=www-data
 ENV MYSQL_ROOT_PASSWORD=nagiosql_pass
 
 RUN apt update && \
-    yes | apt-get install sendemail && \
     yes | apt-get update && \
+    yes | apt-get install sendemail && \
     apt-get install -y php libmcrypt-dev php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-pear gcc php-dev php zlib1g-dev libssh2-1 libssh2-1-dev php-ssh2  mariadb-server build-essential && \
     yes | apt-get install -y autoconf gcc libc6 make wget unzip php libgd-dev && \
 	yes | apt-get install openssl libssl-dev && \
     apt-get purge openssh-server && \
     yes | apt-get install openssh-server && \
-    service ssh start && \
+    mkdir /var/run/sshd && \
+    echo 'root:$NAGIOS_PASSWORD' | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
     # yes | apt-get install iptables && \
     # iptables -A INPUT -p tcp  --destination-port 22 -j ACCEPT && \
     # iptables -A INPUT -p tcp  --destination-port 80 -j ACCEPT && \
@@ -66,4 +69,4 @@ RUN apt update && \
 USER root
 
 # Start SSH service
-# CMD ["/usr/sbin/sshd", "-D"]
+# CMD ["service","ssh","start"]
