@@ -12,6 +12,9 @@ services:
     networks:
       nagios_network:
         ipv4_address: 10.10.99.69
+    environment:
+      NAGIOS_PASSWORD: ${NAGIOS_PASSWORD}
+      NAGIOS_ADMIN: ${NAGIOS_ADMIN}
     ports:
       - "80:80"
       - "22:22"
