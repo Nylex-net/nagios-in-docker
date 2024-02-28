@@ -16,9 +16,10 @@ services:
     environment:
       NAGIOS_PASSWORD: ${NAGIOS_PASSWORD}
       NAGIOS_ADMIN: ${NAGIOS_ADMIN}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "80:80"
-      - "22:22"
+      # - "22:22"
     volumes:
       - nagios-data:/vol/web/static
 

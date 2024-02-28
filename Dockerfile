@@ -1,14 +1,19 @@
 FROM ubuntu
 LABEL maintainer="nylex.net"
 
+# Required Nagiosql config files with host information.
 COPY ./nagiosql /usr/local/nagios/etc/nagiosql
 
+# File from original Nagios build.
 COPY ./nagiosql_share/config/settings.php /usr/local/nagios/share/nagiosql/config/settings.php
 
+# Nagios' configuration files.
 COPY ./Configs /usr/local/nagios/etc/
 
+# Commands ran upon starting nagios container.
 COPY ./scripts/run.sh /scripts/run.sh
 
+# Missing required file.
 COPY ./loose_files/ping /usr/bin/ping
 
 # COPY ./initial_setup/nagios-4.4.8 /tmp/setup
@@ -18,19 +23,18 @@ COPY ./loose_files/ping /usr/bin/ping
 # COPY ./apache2/apache2.conf ./etc/apache2/apache2.conf
 # COPY ./apache2/ports.conf ./etc/apache2/ports.conf
 
-ENV APACHE_RUN_USER=nagios
-ENV APACHE_RUN_GROUP=www-data
-ENV MYSQL_ROOT_PASSWORD=nagiosql_pass
-
+# Required arguments and environmental variables.
 ENV GEOGRAPHIC_AREA=11
-
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
+# Variables used for debugging.
 # ENV MAIL_RELAY_HOST=helpdesk@nylex.net
 # ENV MAIL_INET_PROTOCOLS=
 ENV NAGIOS_FQDN=NAGIOS-NVR
 # ENV NAGIOS_TIMEZONE=Etc/UTC
+ENV APACHE_RUN_USER=nagios
+ENV APACHE_RUN_GROUP=www-data
 
 RUN apt update && \
 	#Checks for updates
@@ -49,9 +53,9 @@ RUN apt update && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
 	#Installs nagios & compiles
     cd /tmp && \
-    wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/releases/download/nagios-4.5.0/nagios-4.5.0.tar.gz && \
+    wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/releases/download/nagios-4.5.1/nagios-4.5.1.tar.gz && \
 	tar -xzf ./nagioscore.tar.gz && \
-	cd ./nagios-4.5.0 && \
+	cd ./nagios-4.5.1 && \
 	./configure --with-httpd-conf=/etc/apache2/sites-enabled && \
 	make all && \
 	#Creates user and adjusts rights
@@ -90,7 +94,7 @@ RUN apt update && \
 	apachectl configtest && \
 	service apache2 restart && \
 	service nagios start && \
-	apt-get install -y php libmcrypt-dev php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-pear gcc php-dev php zlib1g-dev libssh2-1 libssh2-1-dev php-ssh2 mariadb-server build-essential && \
+	apt-get install -y php libmcrypt-dev php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-pear gcc php-dev php zlib1g-dev libssh2-1 libssh2-1-dev php-ssh2 mariadb-server build-essential php-ftp && \
 	pear channel-update pear.php.net && \
 	pear install HTML_Template_IT && \
 	pecl install mcrypt | echo && \
@@ -106,6 +110,7 @@ RUN apt update && \
 	mkdir /usr/local/nagios/etc/nagiosql/backup && \
 	mkdir /usr/local/nagios/etc/nagiosql/backup/hosts && \
 	mkdir /usr/local/nagios/etc/nagiosql/backup/services && \
+	mkdir /var/log/sendemail && \
     chmod -R 777 /usr/local/nagios/share/nagiosql/config && \
     chmod -R 6775 /usr/local/nagios/etc/nagiosql && \
     chown -R nagios.www-data /usr/local/nagios/etc/nagiosql && \
@@ -134,12 +139,15 @@ RUN apt update && \
     cd /tmp && \
     wget https://github.com/duffycop/nagios_plugins/files/1881453/check_service.tar.gz && \
     tar -xzf check_service.tar.gz && \
-    mv ./check_service /usr/local/nagios/libexec
+    mv ./check_service /usr/local/nagios/libexec && \
+	sed -i 's/systemctl is-active \$SERVICE/service $SERVICE status/g' /usr/local/nagios/libexec/check_service
 
 USER root
 
+# Nagios Port.
 EXPOSE 80
 
+# Secure Shell port.
 EXPOSE 22
 
 CMD ["/scripts/run.sh"]
