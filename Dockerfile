@@ -7,6 +7,10 @@ COPY ./nagiosql_share/config/settings.php /usr/local/nagios/share/nagiosql/confi
 
 COPY ./Configs /usr/local/nagios/etc/
 
+COPY ./scripts/run.sh /scripts/run.sh
+
+COPY ./loose_files/ping /usr/bin/ping
+
 # COPY ./initial_setup/nagios-4.4.8 /tmp/setup
 # COPY ./initial_setup/nagios-plugins-2.4.2 /tmp/plugins
 
@@ -15,15 +19,18 @@ COPY ./Configs /usr/local/nagios/etc/
 # COPY ./apache2/ports.conf ./etc/apache2/ports.conf
 
 ENV APACHE_RUN_USER=nagios
-
 ENV APACHE_RUN_GROUP=www-data
-
 ENV MYSQL_ROOT_PASSWORD=nagiosql_pass
 
 ENV GEOGRAPHIC_AREA=11
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
+
+# ENV MAIL_RELAY_HOST=helpdesk@nylex.net
+# ENV MAIL_INET_PROTOCOLS=
+ENV NAGIOS_FQDN=NAGIOS-NVR
+# ENV NAGIOS_TIMEZONE=Etc/UTC
 
 RUN apt update && \
 	#Checks for updates
@@ -42,9 +49,9 @@ RUN apt update && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
 	#Installs nagios & compiles
     cd /tmp && \
-    wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/releases/download/nagios-4.4.8/nagios-4.4.8.tar.gz && \
+    wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/releases/download/nagios-4.5.0/nagios-4.5.0.tar.gz && \
 	tar -xzf ./nagioscore.tar.gz && \
-	cd ./nagios-4.4.8 && \
+	cd ./nagios-4.5.0 && \
 	./configure --with-httpd-conf=/etc/apache2/sites-enabled && \
 	make all && \
 	#Creates user and adjusts rights
@@ -61,25 +68,28 @@ RUN apt update && \
 	make install-webconf && \
 	a2enmod rewrite && \
 	a2enmod cgi && \
-    cd ../.. && \
+    # cd ../.. && \
 	#Installs and configures firewall, finishes base Nagios install
-	yes | apt-get install iptables && \
-	iptables -I INPUT -p tcp --destination 10.10.99.69/24 -j ACCEPT && \
-	yes | apt-get install -y iptables-persistent && \
-	htpasswd -c -b /usr/local/nagios/etc/htpasswd.users $NAGIOS_ADMIN $NAGIOS_PASSWORD && \
-	sed -i 's/check_for_updates=1/check_for_updates=0/' /usr/local/nagios/etc/nagios.cfg && \
+	# yes | apt-get install iptables && \
+	# iptables -I INPUT -p tcp --destination 10.10.99.69/24 -j ACCEPT && \
+	# yes | apt-get install -y iptables-persistent && \
+	# htpasswd -b -c /usr/local/nagios/etc/htpasswd.users $NAGIOS_ADMIN $NAGIOS_PASSWORD && \
+	# sed -i 's/check_for_updates=1/check_for_updates=0/' /usr/local/nagios/etc/nagios.cfg && \
 	#Installs Nagios Plugins
     apt-get install -y autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext && \
     # cd /tmp && \
-	wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/releases/download/release-2.4.2/nagios-plugins-2.4.2.tar.gz && \
+	wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/releases/download/release-2.4.8/nagios-plugins-2.4.8.tar.gz && \
 	tar -zxf ./nagios-plugins.tar.gz && \
-	cd ./nagios-plugins-2.4.2 && \
+	cd ./nagios-plugins-2.4.8 && \
 	./configure && \
 	make && \
 	make install && \
+	cd ../.. && \
+	server_name="Nagios-SVR" && \
+	sed -i "/^# Global configuration$/a ServerName ${server_name}" /etc/apache2/apache2.conf && \
+	apachectl configtest && \
 	service apache2 restart && \
 	service nagios start && \
-    cd ../.. && \
 	apt-get install -y php libmcrypt-dev php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-pear gcc php-dev php zlib1g-dev libssh2-1 libssh2-1-dev php-ssh2 mariadb-server build-essential && \
 	pear channel-update pear.php.net && \
 	pear install HTML_Template_IT && \
@@ -113,6 +123,7 @@ RUN apt update && \
 	chmod 664 /usr/local/nagios/etc/nagios.cfg && \
 	chmod 664 /usr/local/nagios/etc/cgi.cfg && \
 	chmod g+x /usr/local/nagios/var/rw/ && \
+	# chmod ug+s /usr/local/nagios/libexec/check_ping && \
 	chgrp www-data /usr/local/nagios/etc/ && \
 	chgrp www-data /usr/local/nagios/etc/nagios.cfg && \
 	chgrp www-data /usr/local/nagios/etc/cgi.cfg && \
@@ -131,5 +142,5 @@ EXPOSE 80
 
 EXPOSE 22
 
-CMD ["service","apache2","restart",":","service","nagios","restart",":","service","ssh","restart"]
+CMD ["/scripts/run.sh"]
 # Remember to start the SSH service through the container's command prompt.

@@ -6,7 +6,7 @@ services:
   nagios:
     build:
       context: .
-      privileged: true
+      # privileged: true
     depends_on:
       - db
     hostname: Nagios-SVR
