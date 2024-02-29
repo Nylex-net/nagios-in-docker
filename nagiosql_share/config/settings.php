@@ -16,11 +16,11 @@ exit;
 ;///////////////////////////////////////////////////////////////////////////////
 [db]
 type         = 'mysqli'
-server       = 'db'
+server       = 'localhost'
 port         = '3306'
 database     = 'db_nagiosql_v341'
-username     = 'root'
-password     = '$MYSQL_ROOT_PASSWORD'
+username     = 'nagiosql_user'
+password     = 'nagiosql_pass'
 [path]
 base_url     = '/nagios/nagiosql/'
 base_path    = '/usr/local/nagios/share/nagiosql/'
