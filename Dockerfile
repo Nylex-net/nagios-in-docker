@@ -29,7 +29,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
 # Variables used for debugging.
-# ENV MAIL_RELAY_HOST=helpdesk@nylex.net
 # ENV MAIL_INET_PROTOCOLS=
 ENV NAGIOS_FQDN=NAGIOS-NVR
 # ENV NAGIOS_TIMEZONE=Etc/UTC
@@ -39,7 +38,7 @@ ENV APACHE_RUN_GROUP=www-data
 RUN apt update && \
 	#Checks for updates
     yes | apt-get update && \
-	sed -i 's/10.10.99.69/$(hostname -I)/g' /usr/local/nagios/share/nagiosql/config/settings.php && \
+	sed -i 's/10.10.99.69/$(hostname -I)/g' /usr/local/nagios/etc/nagiosql/hosts/Nagios-SVR.cfg && \
     yes | apt-get install sendemail && \
 	yes | apt-get dist-upgrade && \
 	# yes | apt-get install send-email && \
@@ -102,9 +101,9 @@ RUN apt update && \
 	echo "extension=mcrypt.so" >> /etc/php/8.1/apache2/php.ini && \
 	echo "date.timezone=Asia/Singapore"  >> /etc/php/8.1/apache2/php.ini && \
 	service apache2 restart && \
-	mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" && \
-	mysql -u root -p $MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'Nagios-NVR' IDENTIFIED BY '$NAGIOS_PASSWORD';" && \
-	mysql -u root -p $MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;" && \
+	# mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" && \
+	# mysql -u root -p $MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'Nagios-NVR' IDENTIFIED BY '$NAGIOS_PASSWORD';" && \
+	# mysql -u root -p $MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;" && \
 	#Download NagiosQL
 	cd /tmp && \
     wget -O nagiosql-3.5.0-.tar.gz https://sourceforge.net/projects/nagiosql/files/nagiosql/NagiosQL%203.5.0/nagiosql-3.5.0-git2023-06-18.tar.gz/download && \
@@ -144,7 +143,7 @@ RUN apt update && \
     wget https://github.com/duffycop/nagios_plugins/files/1881453/check_service.tar.gz && \
     tar -xzf check_service.tar.gz && \
     mv ./check_service /usr/local/nagios/libexec && \
-	sed -i 's/systemctl is-active \$SERVICE/service $SERVICE status/g' /usr/local/nagios/libexec/check_service
+	sed -i 's/systemctl is-active \$SERVICE/service \$SERVICE status/g' /usr/local/nagios/libexec/check_service
 
 USER root
 
