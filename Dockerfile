@@ -16,17 +16,26 @@ COPY ./scripts/run.sh /scripts/run.sh
 # Missing required file.
 COPY ./loose_files/ping /usr/bin/ping
 
+# COPY ./initial_setup/nagios-4.4.8 /tmp/setup
+# COPY ./initial_setup/nagios-plugins-2.4.2 /tmp/plugins
+
+# COPY ./apache2/envvars ./etc/apache2/envvars
+# COPY ./apache2/apache2.conf ./etc/apache2/apache2.conf
+# COPY ./apache2/ports.conf ./etc/apache2/ports.conf
+
 # Required arguments and environmental variables.
 ENV GEOGRAPHIC_AREA=11
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
 # Variables used for debugging.
+# ENV MAIL_RELAY_HOST=helpdesk@nylex.net
+# ENV MAIL_INET_PROTOCOLS=
 ENV NAGIOS_FQDN=NAGIOS-NVR
+# ENV NAGIOS_TIMEZONE=Etc/UTC
 ENV APACHE_RUN_USER=nagios
 ENV APACHE_RUN_GROUP=www-data
 
-# Run command to download, install, and setup Nagios.
 RUN apt update && \
 	#Checks for updates
     yes | apt-get update && \
@@ -100,7 +109,7 @@ RUN apt update && \
 	cd /tmp && \
     wget -O nagiosql-3.5.0-.tar.gz https://sourceforge.net/projects/nagiosql/files/nagiosql/NagiosQL%203.5.0/nagiosql-3.5.0-git2023-06-18.tar.gz/download && \
 	tar -zxvf nagiosql-3.5.0-.tar.gz && \
-	cp -vprf nagiosql-3.5.0/* /usr/local/nagios/share/nagiosql && \
+	cp -vprf nagiosql-3.5.0/ /usr/local/nagios/share/nagiosql && \
 	#Configure Files and Folders
 	mkdir /usr/local/nagios/etc/nagiosql/backup && \
 	mkdir /usr/local/nagios/etc/nagiosql/backup/hosts && \
@@ -137,7 +146,6 @@ RUN apt update && \
     mv ./check_service /usr/local/nagios/libexec && \
 	sed -i 's/systemctl is-active \$SERVICE/service $SERVICE status/g' /usr/local/nagios/libexec/check_service
 
-# Set user.
 USER root
 
 VOLUME ["/vol/web/static"]
@@ -148,5 +156,5 @@ EXPOSE 80
 # Secure Shell port.
 EXPOSE 22
 
-# Run shell file to start our required services.
 CMD ["/scripts/run.sh"]
+# Remember to start the SSH service through the container's command prompt.
