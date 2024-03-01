@@ -7,7 +7,7 @@ But I eventually switched to using a Ubuntu image and borrowed Nylex.net's insta
 I've pushed my custom image to Docker Hub as [nylexdotnet/nagios-svr](https://hub.docker.com/r/nylexdotnet/nagios-svr).
 The intention is to make it easy for Nylex.net employees to pull and run with very little instructions. Just pull and run:
 
-1. Pull image from Docker Hub:
+1. Once you have Docker installed, pull the image from Docker Hub:
 
     - `docker pull nylexdotnet/nagios-svr`
 
