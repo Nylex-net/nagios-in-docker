@@ -1,2 +1,3 @@
 /nagiosql/hosts
 .env
+/ssl/deSEC.ini
