@@ -1,3 +1,5 @@
-/nagiosql/hosts
+*/nagiosql/hosts
+*/nagiosql/services
+
 .env
-/ssl/deSEC.ini
+*/ssl/deSEC.ini

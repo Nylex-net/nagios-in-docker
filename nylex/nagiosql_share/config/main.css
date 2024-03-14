@@ -1,0 +1,230 @@
+@charset "utf-8";
+/*/////////////////////////////////////////////////////////////////////////////
+//
+// NagiosQL
+//
+///////////////////////////////////////////////////////////////////////////////
+//
+// (c) 2005-2020 by Martin Willisegger
+//
+// Project   : NagiosQL
+// Component : CSS Main definition
+// Website   : https://sourceforge.net/projects/nagiosql/
+// Version   : 3.4.1
+// GIT Repo  : https://gitlab.com/wizonet/NagiosQL
+//
+/////////////////////////////////////////////////////////////////////////////*/
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+}
+#login {
+	text-align: center;
+	margin:0 auto;
+	max-width:80em;
+	min-width:740px;
+}
+/************************/
+/**  HEADER definitions */
+/************************/
+.header {
+	background: #FFFFFF url(../images/bg_top.png) repeat-x right top;
+}
+.headerleft {
+	vertical-align: bottom;
+	text-align: left;
+	padding-left: 10px;
+}
+.headerleft a {
+	color: #002C52;
+	background-color: #FFFFFF;
+}		
+.headerleft a:hover {
+	color: #002C52;
+	background-color: #E5E9ED ;
+}
+.headerleft a:active {
+	color: #002C52;
+	background-color: #E5E9ED ;
+}	
+.top-link {
+	color: #002C52;
+	font-size: 10pt;
+	text-decoration: none;
+	font-weight: bold;
+	background-color: #FFFFFF;
+	padding: 2px 3px 0 3px;
+	border-top:1px solid #002C52;
+	border-left:1px solid #002C52;
+	border-right:1px solid #002C52;
+}			
+.headermiddle {
+	vertical-align: bottom;
+	height: 40px;
+	width: 200px;
+}
+.headerright {
+	text-align: right;
+	vertical-align: bottom;
+	padding-right: 20px;
+}
+.infoleft {
+	vertical-align: middle;
+	text-align: left;
+	font-size: 10px ;
+	padding-left: 20px;
+}
+.inforight {
+	width:200px;
+	vertical-align: middle;
+	text-align: right;
+	font-size: 10px;
+	padding: 4px 20px 4px 4px;
+}
+.inforight2 {
+	vertical-align: middle;
+	text-align: right;
+	font-size: 10px;
+}			
+/********************/
+/**  Formatierungen */
+/********************/
+h1,h2,h3 {
+	color: #0c4271;
+	margin-top: 0;
+}
+h1 {
+	text-align: left;
+	font-size: 22px;
+}
+h2 {
+	font-size: 14px;
+}
+h3 {
+	font-size: 14px;
+	font-style:italic;
+}
+/********************/
+/**  Menu  **********/
+/********************/
+.menutable {
+	margin: 0;
+	padding: 0;
+	border: none;
+	text-align:left;
+}
+.menutable a {
+	text-decoration: none;
+	color: #666666;
+}
+.menutable a:hover {
+	color: #FF00FF;
+}
+
+/*noinspection ALL*/
+.menutable .menu_act {
+	color: #FF0000;
+	font-size: 12px;
+	font-weight: bold;
+	padding-left: 20px;
+	height: 20px;
+	background: url(../images/bg_menu_aktiv.png) repeat-x left top; 
+	width: 140px;
+}
+.menutable .menu_act a {
+	color: #00396a;
+}
+.menutable .menu_act a:hover {
+	color: #00396a;
+}
+.menutable .menu {
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding-left: 20px;
+	height: 20px;
+	background: url(../images/bg_menu_inaktiv.png) repeat-x left top; 
+	width: 140px;
+}
+.menutable .menu a {
+	color: #d6d6d6;
+}
+.menutable .menu a:hover {
+	color: #FFFFFF;
+}
+
+/*noinspection ALL*/
+.menutable .menu_sub {
+	font-size: 11px;
+	color: #666666;
+	text-decoration: none;
+	height: 5px;
+	padding-left: 30px;
+	background: #FFFFFF url(../images/bg_submenu.png) repeat-y left top;
+}
+.menutable .menu_sub a {
+	color: #666666;
+}
+.menutable .menu_sub a:hover {
+	color: #666666;
+	text-decoration: underline;
+}
+
+/*noinspection ALL*/
+.menutable .menu_sub_act {
+	font-size: 11px;
+	font-weight: bold;
+	color: #666666;
+	text-decoration: none;
+	height: 5px;
+	padding-left: 30px;
+	background: #FFFFFF url(../images/bg_submenu.png) repeat-y left top;
+}
+.menutable .menu_sub_act a {
+	color: #666666;
+}
+.menutable .menu_sub_act a:hover {
+	color: #666666;
+	text-decoration: underline;
+}
+.menulinksmall {
+	font-size: 10px;
+	color: #666666;
+	text-decoration: none;
+}
+/************************/
+/**  YUI definitions    */
+/************************/
+#cal-cont .bd:after {
+	content:".";
+	display:block;
+	clear:left;
+	height:0;
+	visibility:hidden;
+}
+#cal-cont .bd {
+	padding:0;
+}
+#cal-cont2 .bd:after {
+	content:".";
+	display:block;
+	clear:left;
+	height:0;
+	visibility:hidden;
+}
+#cal-cont2 .bd {
+	padding:0;
+}
+#cal {
+	border:none;
+	padding:1em
+}
+.yui-content input[type="radio"] {
+	background-color:#EDF5FF;
+}
+.yui-content input[type="checkbox"] {
+	background-color:#EDF5FF;
+}

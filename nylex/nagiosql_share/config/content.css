@@ -1,0 +1,491 @@
+@charset "utf-8";
+/*/////////////////////////////////////////////////////////////////////////////
+//
+// NagiosQL
+//
+///////////////////////////////////////////////////////////////////////////////
+//
+// (c) 2005-2020 by Martin Willisegger
+//
+// Project   : NagiosQL
+// Component : CSS content definition
+// Website   : https://sourceforge.net/projects/nagiosql/
+// Version   : 3.4.1
+// GIT Repo  : https://gitlab.com/wizonet/NagiosQL
+//
+/////////////////////////////////////////////////////////////////////////////*/
+/* Content main div */
+#content_main {
+	top:-3px;
+	left:0;
+	width:890px;
+	margin: 0;
+	padding: 0 0 0 10px;
+	position:relative;
+	font-size: 12px;
+}
+/* Content title (list and single view) */
+#content_title {
+	color: #0c4271;
+	margin: 0 0 0 2px;
+	font-size:20px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	padding: 0 0 5px;
+}
+/* Content special definitions */
+.elementHide {
+	display:none;
+}
+.elementShow {}
+.redmessage {
+	color: #FF0000;
+}
+.greenmessage {
+	color: #009900;
+}	
+.blackmessage {
+	color:#000000;
+}	
+.bluemessage {
+	color:#0000FF;
+}	
+.checkred {
+	color: #FF0000;
+	font-weight:bold;
+}
+.checkgreen {
+	color: #009900;
+	font-weight:bold;
+}
+.checkorange {
+	color: #FF9900;
+	font-weight:bold;
+}
+.env_table {
+	padding-top:10px;
+}
+.env_table td {
+	font-size: 12px;
+	padding:2px;
+}
+
+/*noinspection CssUnusedSymbol*/
+#content_main .warnmessage {
+	font-size: 12px;
+	color: #FF9900;
+	font-weight: bold;
+}
+#content_main .errormessage {
+	font-size: 12px;
+	color: #FF0000;
+	font-weight: bold;
+}
+#content_main .pagelinks {
+	font-size: 12px;
+	color: #006600;
+	margin: 0 auto;
+	width: 25%;
+}
+/* Content tags */
+#content_main h2 {
+	font-size: 14px;
+	margin-bottom:0;
+}
+/* Version string */
+.version {
+	font-size: 9px;
+	color: #999999;
+	text-align: center;
+}
+.version a {
+	text-decoration:none;
+	color:#999999;
+}
+.version a:hover {
+	text-decoration:none;
+	color:#333333;
+}
+/* Content forms */
+#content_main form {
+	margin:0;
+	padding:0;
+}
+/* Content form table (single view and top/bottom line of list view) */
+.content_formtable {
+	top:10px;
+	position:relative;
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+}
+.content_formtable td {
+	padding:0;
+	margin:0;
+	height:18px;
+	text-align:left;
+}
+.content_tbl_row1 {
+	width: 200px;
+}
+.content_tbl_row2 {
+	width: 205px;
+}
+.content_tbl_row3 {
+	width: 45px;
+}
+.content_tbl_row4 {
+	width: 30px;
+}
+/* Form field definitions */
+.content_formtable input[type=text] {
+	width:200px;
+	padding:0;
+	margin:0;
+	border: 1px solid #6CF;
+	background: #d1e2fd url(../images/input.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	height:18px;
+}
+.content_formtable input[type=password] {
+	width:200px;
+	padding:0;
+	margin:0;
+	border: 1px solid #6CF;
+	background: #d1e2fd url(../images/input.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	height:18px;
+}
+.content_formtable input[type=file] {
+	width:400px;
+	background: #d1e2fd url(../images/input.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	height:25px;
+}
+.content_formtable input[type=text].inpmust {
+	width:200px;
+	border: 1px solid #053056;
+	background: #941616 url(../images/inputmust.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size:12px;
+	height:18px;
+}
+
+/*noinspection CssUnusedSymbol*/
+.content_formtable input[type=text].inputlock {
+	width:200px;
+	border: 1px solid #053056;
+	background: #5d5d5d url(../images/inputlock.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	color: #f7f7f7;
+	font-weight: normal;
+	font-size:12px;
+	height:18px;
+}
+.content_formtable input[type=password].inpmust {
+	width:200px;
+	border: 1px solid #053056;
+	background: #941616 url(../images/inputmust.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size:12px;
+	height:18px;
+}
+.content_formtable input[type=text].short {
+	width:150px;
+	height:18px;
+	padding:0;
+	margin:0;
+	border: 1px solid #6CF;
+	background: #d1e2fd url(../images/input.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	float:left;
+	display:inline-block;
+}
+.content_formtable input[type=text].shortmust {
+	width:150px;
+	border: 1px solid #053056;
+	background: #941616 url(../images/inputmust.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size:12px;
+	height:18px;
+	float:left;
+	display:inline-block;
+}
+.content_formtable input[type=button] {
+	border:1px solid #6CF;
+	background: #d1e2fd url(../images/input.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	color:#0c4271;
+	height:25px;
+	padding-left:10px;
+	padding-right:10px;
+	margin:0;
+	padding-bottom:2px;
+}
+.content_formtable input[type=button][disabled] {
+	border:1px solid #6CF;
+	background: #d1e2fd url(../images/input.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	color:#CCC;
+	height:25px;
+	padding-left:10px;
+	padding-right:10px;
+	margin:0;
+	padding-bottom:2px;
+}
+.content_formtable input[type=submit] {
+	border:1px solid #6CF;
+	background: #d1e2fd url(../images/input.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	color:#0c4271;
+	height:25px;
+	padding-left:10px;
+	padding-right:10px;
+	margin:0;
+	padding-bottom:2px;
+}
+.content_formtable input[type=submit][disabled] {
+	border:1px solid #6CF;
+	background: #d1e2fd url(../images/input.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	color:#CCC;
+	height:25px;
+	padding-left:10px;
+	padding-right:10px;
+	margin:0;
+	padding-bottom:2px;
+}
+.content_formtable input[type=reset] {
+	border:1px solid #6CF;
+	background: #d1e2fd url(../images/input.png);
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	color:#0c4271;
+	height:25px;
+	padding-left:10px;
+	padding-right:10px;
+	margin:0;
+	padding-bottom:2px;
+}
+.content_formtable input[type=checkbox] {
+	border:none;
+	margin-left:0;
+	margin-right:0;
+	background:none;
+	float:left;
+}
+.content_formtable input[type=radio] {
+	border:none;
+	margin-left:0;
+	margin-right:0;
+	background:none;
+	float:left;
+}
+.content_formtable textarea.arginfo {
+	width:200px;
+	border: 1px solid #6CF;
+	background-color: #d1e2fd;
+	font-family:Verdana, Helvetica, sans-serif;
+	color: #000000;
+	font-size:12px;
+	height:50px;
+	float:left;
+	resize: none;
+}
+.content_formtable select {
+	background-color: #d1e2fd;
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	border: 1px solid #6CF;
+	padding-top:2px;
+}
+.content_formtable option {
+	height: 15px;
+}
+.content_formtable iframe {
+    border: none;
+}
+#versioncheck {
+    border: none;
+}
+/* Additional form table definitions */
+.content_formtable .inpmust {
+	background-color: #941616;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+/*noinspection CssUnusedSymbol*/
+.content_formtable .inactive_option {
+	background-color:#FF8000;
+}
+
+/*noinspection ALL*/
+.content_formtable .foreign_option {
+	background-color:#C90;
+}
+
+/*noinspection ALL*/
+.content_formtable .ieselected {
+	background-color:#3399FF;
+	color:#000000;
+}
+.content_formtable .selectborder {
+	border: 1px solid #6CF;
+	width:202px;
+}
+.content_formtable .selectbordermust {
+	border: 1px solid #000;
+	width:202px;
+}
+.content_formtable .empty_class {}
+.content_formtable .infobutton_1 {
+	left:3px;
+	position:relative;
+}
+.content_formtable .infobutton_2 {
+	left:3px;
+	top:10px;
+	position:relative;
+}
+.content_formtable .shorttext {
+	display: inline-block;
+	float:left;
+	padding-left:5px;
+	padding-top:3px;
+}
+.content_formtable .required_info {
+	margin-left:30px;
+}
+.content_formtable .radio_cell_1 {
+	width:20px;
+	height:18px;
+}
+.content_formtable .radio_cell_2 {
+	 width:29px;
+	 padding-bottom:2px;
+}
+/* Content list view */
+.content_listtable {
+	top:15px;
+	position:relative;
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	margin-bottom:10px;
+}
+.content_listtable th {
+	background-color: #0c4271;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: left;
+	vertical-align: middle;
+	padding: 5px;
+}
+.content_listtable td {
+	text-align: left;
+	vertical-align: middle;
+	padding: 0 0 2px;
+	height:25px;
+}
+.content_listtable .tdlb {
+	padding-left:5px;
+}
+
+/*noinspection ALL*/
+.content_listtable .tdld {
+	padding-left:5px;
+	background-color: #dbe6ff;
+}
+.content_listtable .tdmb {
+	text-align: center;
+}
+
+/*noinspection ALL*/
+.content_listtable .tdmd {
+	text-align: center;
+	background-color: #dbe6ff;
+}
+/* Log table */
+.content_logtable {
+	top:15px;
+	position:relative;
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	margin-bottom:10px;
+}
+.content_logtable th {
+	background-color: #0c4271;
+	border: 1px solid #333333;
+	padding: 2px;
+	color: #FFFFFF;
+}
+.content_logtable td {
+	background-color: #FFFFFF;
+	padding: 2px;
+	border: 1px solid #333333;
+	text-align:center;
+}
+.content_logtable .loglegend {
+	border: 0;
+	padding: 0;
+	width:445px;
+}
+/* Custom */
+.tablerow {
+	border-bottom:1px solid #0c4271;
+	font-size:12px;
+	height:20px;
+	padding-top:2px;
+	padding-left:5px;
+	padding-right:5px;
+}
+/* Page links / site numbers */
+.sitenumber {
+	background-color:#4080BE;
+	width:25px;
+	height:25px;
+	color:#d6d6d6;
+	border:1px solid #FFF;
+	text-align:center;
+	cursor:pointer;
+}
+.sitenumber a {
+	color:#d6d6d6;
+	text-decoration:none;
+}
+.sitenumber a:hover {
+	color:#d6d6d6;
+	text-decoration:none;
+}
+.sitenumber-sel {
+	background-color:#CCC;;
+	color:#00396a;
+	width:25px;
+	height:25px;
+	border:1px solid #FFF;
+	text-align:center;
+	font-weight:bold;
+}
+#donate {
+	top: 550px;
+	left:3px;
+	width: 150px;
+	position:absolute;
+	text-align:center;
+	z-index:auto;
+}
+/* END */
