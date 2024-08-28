@@ -75,6 +75,7 @@ RUN apt-get update -y && \
     tar -xzf /tmp/check_service.tar.gz -C /usr/local/nagios/libexec && \
     sed -i 's/systemctl is-active \$SERVICE/service \$SERVICE status/g' /usr/local/nagios/libexec/check_service && \
     chmod ug+s /usr/local/nagios/libexec/check_service && \
+    sed -i '/# Global configuration/i ServerName ${APACHE_HOSTNAME}' /etc/apache2/apache2.conf && \
     service apache2 restart && \
     service nagios start
 
