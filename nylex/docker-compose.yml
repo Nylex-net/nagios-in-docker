@@ -18,8 +18,8 @@ services:
     ports:
       - "80:80"
       # - "22:22"
-    volumes:
-      - nagios-data:/vol/web/static
+    # volumes:
+    #   - nagios-data:/vol/web/static
 
   # db:
   #   build:
@@ -34,12 +34,13 @@ services:
   #   environment:
   #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
-# networks:
-#   nagios_network:
-#     ipam:
-#       driver: default
-#       config:
-#         - subnet: 10.10.99.0/24
+networks:
+  nagios_network:
+    ipam:
+      driver: bridge
+      config:
+        - gateway: 10.10.99.2
+        - subnet: 10.10.99.0/24
 
-volumes:
-  nagios-data:
+# volumes:
+#   nagios-data:
