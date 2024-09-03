@@ -1,0 +1,3 @@
+# Nagios-SVR
+
+This is the Nagios server to run for Nylex.net.  Its hosts consists of its maitenance clients.  The docker image for this server is located at `nylexdotnet\nagios:latest`.
