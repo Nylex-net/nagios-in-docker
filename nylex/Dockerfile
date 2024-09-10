@@ -26,7 +26,7 @@ ENV APACHE_RUN_GROUP=www-data
 
 # Install dependencies and Nagios
 RUN apt-get update -y && \
-    apt-get install -y autoconf gcc libc6 make wget unzip php libgd-dev openssl libssl-dev \
+    apt-get install -y autoconf gcc libc6 make wget unzip php libgd-dev openssl libssl-dev dnsmasq\
     openssh-server php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-pear \
     php-dev php zlib1g-dev libssh2-1 libssh2-1-dev php-ssh2 mariadb-server build-essential \
     snmp libnet-snmp-perl gettext && \
