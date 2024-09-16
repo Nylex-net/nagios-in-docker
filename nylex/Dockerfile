@@ -76,7 +76,8 @@ RUN apt-get update -y && \
     sed -i 's/systemctl is-active \$SERVICE/service \$SERVICE status/g' /usr/local/nagios/libexec/check_service && \
     chmod ug+s /usr/local/nagios/libexec/check_service && \
     sed -i '/# Global configuration/i ServerName ${APACHE_HOSTNAME}' /etc/apache2/apache2.conf && \
-    sed -i 'export APACHE_HOSTNAME=Nagios-SVR' /etc/apache2/envvars
+    sed -i 'export APACHE_HOSTNAME=Nagios-SVR' /etc/apache2/envvars && \
+    sed -i '127.0.0.1 Nagios-SVR' /etc/hosts
 
 # Expose ports
 EXPOSE 80 22

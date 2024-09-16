@@ -9,24 +9,25 @@ services:
     #   - db
     hostname: Nagios-SVR
     networks:
-      - my_network
+      my_network:
+        ipv4_address: 10.10.99.69
     environment:
       NAGIOS_PASSWORD: ${NAGIOS_PASSWORD}
       NAGIOS_ADMIN: ${NAGIOS_ADMIN}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    # ports:
-    #   - "80:80"
-      # - "22:22"
+    ports:
+      - "80:80"
+      - "22:22"
     # volumes:
     #   - nagios-data:/vol/web/static
 
-  nginx:
-    image: nginx:latest
-    networks:
-    - my_network
-    ports:
-      - "80:80"
-      - "443:443"
+  # nginx:
+  #   image: nginx:latest
+  #   networks:
+  #   - my_network
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
 
 
   # db:
@@ -44,8 +45,11 @@ services:
 
 networks:
   my_network:
+    driver: bridge
     ipam:
-      driver: bridge
+      config:
+        - subnet: 10.10.99.0/24
+      
 
 # volumes:
 #   nagios-data:
