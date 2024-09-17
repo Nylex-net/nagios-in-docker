@@ -36,9 +36,9 @@ RUN apt-get update -y && \
     echo 'root:$NAGIOS_PASSWORD' | chpasswd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
-    wget -O /tmp/nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/releases/download/nagios-4.5.4/nagios-4.5.4.tar.gz && \
+    wget -O /tmp/nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/releases/download/nagios-4.5.5/nagios-4.5.5.tar.gz && \
     tar -xzf /tmp/nagioscore.tar.gz -C /tmp && \
-    cd /tmp/nagios-4.5.4 && \
+    cd /tmp/nagios-4.5.5 && \
     ./configure --with-httpd-conf=/etc/apache2/sites-enabled && \
     make all && \
     make install-groups-users && \
@@ -76,8 +76,7 @@ RUN apt-get update -y && \
     sed -i 's/systemctl is-active \$SERVICE/service \$SERVICE status/g' /usr/local/nagios/libexec/check_service && \
     chmod ug+s /usr/local/nagios/libexec/check_service && \
     sed -i '/# Global configuration/i ServerName ${APACHE_HOSTNAME}' /etc/apache2/apache2.conf && \
-    sed -i 'export APACHE_HOSTNAME=Nagios-SVR' /etc/apache2/envvars && \
-    sed -i '127.0.0.1 Nagios-SVR' /etc/hosts
+    sed -i 'export APACHE_HOSTNAME=Nagios-SVR' /etc/apache2/envvars
 
 # Expose ports
 EXPOSE 80 22

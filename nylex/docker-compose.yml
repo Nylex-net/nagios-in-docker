@@ -2,21 +2,20 @@
 version: '3.9'
 
 services:
-  Nagios-SVR:
+  nagios-svr:
     build:
       context: .
     # depends_on:
     #   - db
     hostname: Nagios-SVR
     networks:
-      my_network:
-        ipv4_address: 10.10.99.69
+      - my_network
     environment:
       NAGIOS_PASSWORD: ${NAGIOS_PASSWORD}
       NAGIOS_ADMIN: ${NAGIOS_ADMIN}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - "80:80"
+      - "8000:80"
       - "22:22"
     # volumes:
     #   - nagios-data:/vol/web/static
@@ -45,11 +44,11 @@ services:
 
 networks:
   my_network:
-    driver: bridge
+    driver: macvlan
     ipam:
       config:
         - subnet: 10.10.99.0/24
-      
+        - gateway: 10.10.99.1
 
 # volumes:
 #   nagios-data:
