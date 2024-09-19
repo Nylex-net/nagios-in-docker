@@ -11,7 +11,7 @@ COPY ./nagiosql_share/config/settings.php /usr/local/nagios/share/nagiosql/confi
 COPY ./Configs /usr/local/nagios/etc/
 
 # Commands ran upon starting nagios container.
-COPY ./scripts/run.sh /scripts/run.sh
+COPY ./scripts /scripts/
 
 # Missing required file.
 COPY ./loose_files/ping /usr/bin/ping
